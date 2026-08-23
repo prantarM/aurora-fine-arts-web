@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { heroQuery, machineryQuery, servicesQuery } from "@/sanity/lib/queries";
+import { heroQuery, machineryQuery, servicesQuery, featuredProductsQuery } from "@/sanity/lib/queries";
 import HomeClient from "@/components/HomeClient";
 
 // Revalidate every 60 seconds
@@ -52,13 +52,38 @@ const MOCK_MACHINERY = [
   },
 ];
 
+const MOCK_PRODUCTS = [
+  {
+    _id: "p1",
+    title: "Premium Calendars",
+    shortDescription: "Large-format offset printing with UV coating.",
+    imageUrl: "https://images.unsplash.com/photo-1506784951206-b9241fc9a6c1?q=80&w=2070&auto=format&fit=crop",
+    accentColor: "#00FFFF",
+  },
+  {
+    _id: "p2",
+    title: "Greeting Cards",
+    shortDescription: "Die-cut folded cards with foil stamping.",
+    imageUrl: "https://images.unsplash.com/photo-1512144888804-9426f8d09579?q=80&w=2070&auto=format&fit=crop",
+    accentColor: "#FF00FF",
+  },
+  {
+    _id: "p3",
+    title: "Fine Books",
+    shortDescription: "Hardcover Smyth-sewn binding.",
+    imageUrl: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2112&auto=format&fit=crop",
+    accentColor: "#FFFF00",
+  },
+];
+
 export default async function Home() {
-  let hero, services, machinery;
+  let hero, services, machinery, products;
 
   try {
     hero = await client.fetch(heroQuery);
     services = await client.fetch(servicesQuery);
     machinery = await client.fetch(machineryQuery);
+    products = await client.fetch(featuredProductsQuery);
   } catch (e) {
     console.warn("Sanity fetch failed, using mock data.");
   }
@@ -67,12 +92,14 @@ export default async function Home() {
   const activeHero = hero || MOCK_HERO;
   const activeServices = services?.length ? services : MOCK_SERVICES;
   const activeMachinery = machinery?.length ? machinery : MOCK_MACHINERY;
+  const activeProducts = products?.length ? products : MOCK_PRODUCTS;
 
   return (
     <HomeClient 
       hero={activeHero} 
       services={activeServices} 
       machinery={activeMachinery} 
+      products={activeProducts}
     />
   );
 }

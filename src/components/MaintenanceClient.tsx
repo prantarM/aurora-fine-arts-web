@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
+import { Button } from "@/components/ui/Button";
 
 export default function MaintenanceClient() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,13 +41,20 @@ export default function MaintenanceClient() {
     <div ref={containerRef} className="min-h-screen bg-white text-black p-4 md:p-8 flex flex-col justify-between overflow-hidden">
       
       {/* Header Bento */}
-      <header className="border-2 border-black p-6 md:p-8 bg-white mb-8 max-w-[1200px] mx-auto w-full reveal-text">
-        <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
-          Aurora Fine Arts
-        </h1>
-        <p className="text-lg md:text-2xl font-bold uppercase mt-2 text-neutral-500">
-          Here for all your printing needs.
-        </p>
+      <header className="border-2 border-black p-4 md:p-8 bg-white mb-8 max-w-[1200px] mx-auto w-full reveal-text flex items-center justify-between gap-2 md:gap-4">
+        <div className="flex flex-col min-w-0">
+          <h1 className="text-xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter truncate">
+            Aurora Fine Arts
+          </h1>
+          <p className="text-xs sm:text-lg md:text-2xl font-bold uppercase mt-1 md:mt-2 text-neutral-500 truncate">
+            Here for all your printing needs.
+          </p>
+        </div>
+        <a href="https://aurora-e-reader-jade.vercel.app/" className="shrink-0">
+          <Button className="text-[10px] md:text-sm !px-3 !py-2 md:!px-8 md:!py-4 whitespace-nowrap">
+            E-READER →
+          </Button>
+        </a>
       </header>
 
       {/* Main Status Text */}

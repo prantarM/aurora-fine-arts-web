@@ -5,10 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
+import { Button } from "./ui/Button";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function HomeClient({ hero, services, machinery }: { hero: any, services: any, machinery: any }) {
+export default function HomeClient({ hero, services, machinery, products }: { hero: any, services: any, machinery: any, products: any }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -133,6 +135,33 @@ export default function HomeClient({ hero, services, machinery }: { hero: any, s
             <div className="hero-text">
               <MagneticButton className="hover:bg-black hover:text-white">Get an Instant Quote</MagneticButton>
             </div>
+          </div>
+        </section>
+
+        {/* GLIMPSE SECTION (WHAT WE CREATE) */}
+        <section className="bento-item col-span-1 md:col-span-2 xl:col-span-12 border-2 border-black rounded-none flex flex-col xl:flex-row">
+          <div className="p-6 md:p-10 xl:w-1/3 xl:border-r-2 border-b-2 xl:border-b-0 border-black flex flex-col justify-center items-start">
+            <h2 className="bento-content text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4 leading-none">
+              What We Create
+            </h2>
+            <p className="bento-content text-lg md:text-xl font-medium mb-8">
+              Our featured products, crafted with meticulous attention to detail and uncompromising quality.
+            </p>
+            <Link href="/products" className="bento-content">
+              <Button>Explore All Products</Button>
+            </Link>
+          </div>
+          <div className="xl:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {products.slice(0, 3).map((product: any, idx: number) => (
+              <div key={product._id || idx} className={`p-6 border-b-2 md:border-b-0 md:border-r-2 border-black flex flex-col justify-end min-h-[300px] md:min-h-[400px] relative overflow-hidden group hover-cmyk ${idx === 2 ? 'md:border-r-0' : ''}`}>
+                <div className="absolute inset-0 z-0 overflow-hidden bg-neutral-100">
+                  <img src={product.imageUrl} alt={product.title} className="parallax-img w-full h-[120%] object-cover grayscale opacity-50 group-hover:grayscale-0 transition-all duration-500 absolute -top-[10%] cmyk-img" />
+                </div>
+                <div className="relative z-10 bg-white border-2 border-black p-4 self-start">
+                  <h3 className="bento-content text-xl md:text-2xl font-bold uppercase">{product.title}</h3>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

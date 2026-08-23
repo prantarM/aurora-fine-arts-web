@@ -21,3 +21,19 @@ export const machineryQuery = groq`*[_type == "machinery"]{
   technicalSpecs,
   "placeholderImageUrl": placeholderImage.asset->url
 }`
+
+export const featuredProductsQuery = groq`*[_type == "product" && featured == true]{
+  _id,
+  title,
+  shortDescription,
+  "imageUrl": image.asset->url,
+  accentColor
+}`
+
+export const allProductsQuery = groq`*[_type == "product"]{
+  _id,
+  title,
+  shortDescription,
+  "imageUrl": image.asset->url,
+  accentColor
+}`
